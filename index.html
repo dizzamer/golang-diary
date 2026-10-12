@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>🌐 DevNet-Спринт Трекер</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 800px; margin: 40px auto; padding: 20px; background-color: #f3f4f6; color: #333; }
+        .badge { padding: 5px 10px; border-radius: 4px; font-weight: bold; font-size: 14px; }
+        .dev { background-color: #ff9800; color: white; }
+        .stage { background-color: #2196f3; color: white; }
+        .prod { background-color: #4caf50; color: white; }
+        .netops-tag { background: #9c27b0; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; }
+        .devops-tag { background: #009688; color: white; padding: 2px 6px; border-radius: 3px; font-size: 12px; }
+        h1 { text-align: center; color: #2c3e50; }
+        .stand-banner { text-align: center; margin-bottom: 20px; font-size: 18px; }
+        .card { background: white; padding: 20px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
+        .btn-go { background: #2c3e50; color: white; padding: 10px 15px; border-radius: 5px; text-decoration: none; font-weight: bold; }
+        .btn-go:hover { background: #34495e; }
+        .form-box { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-top: 30px; }
+        input, select, button { padding: 10px; margin: 10px 0; width: 97%; border: 1px solid #ccc; border-radius: 4px; display: block;}
+        button { background-color: #27ae60; color: white; border: none; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #219653; }
+    </style>
+</head>
+<body>
+
+    <h1>🌐 Навигатор инженера «DevNet-Спринт»</h1>
+    
+    <div class="stand-banner">
+        Текущий стенд: 
+        {{if eq .Env "dev"}} <span class="badge dev">DEV (Тестирование кода)</span>
+        {{else if eq .Env "stage"}} <span class="badge stage">STAGE (Предрелиз)</span>
+        {{else if eq .Env "prod"}} <span class="badge prod">PRODUCTION (Живая сеть)</span>
+        {{else}} <span class="badge" style="background:#7f8c8d; color:white;">LOCAL</span> {{end}}
+    </div>
+    
+    <h3>Доступные ресурсы и устройства:</h3>
+    <div>
+        {{range .Resources}}
+        <div class="card">
+            <div>
+                <h4 style="margin: 0 0 5px 0;">{{.Name}} 
+                    {{if eq .Category "NetOps"}} <span class="netops-tag">NetOps</span>
+                    {{else}} <span class="devops-tag">DevOps</span> {{end}}
+                </h4>
+                <small style="color: #7f8c8d;">Изучено/Кликов: <strong>{{.Clicks}}</strong> | Последняя активность: {{.LastClick}}</small>
+            </div>
+            <div>
+                <a href="/go/{{.ID}}" target="_blank" class="btn-go">Открыть ➡️</a>
+            </div>
+        </div>
+        {{else}}
+        <p>Ресурсов пока нет.</p>
+        {{end}}
+    </div>
+
+    <div class="form-box">
+        <h3>Добавить ресурс / Сетевое устройство</h3>
+        <form action="/add" method="POST">
+            <input type="text" name="name" placeholder="Название (например, Веб-интерфейс Коммутатора 1)" required>
+            <select name="category">
+                <option value="DevOps">DevOps (Облака, CI/CD, Контейнеры)</option>
+                <option value="NetOps">NetOps (Сети, Автоматизация, Коммутация)</option>
+            </select>
+            <input type="url" name="url" placeholder="URL-адрес устройства или документации" required>
+            <button type="submit">Добавить в базу</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
