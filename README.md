@@ -2,22 +2,40 @@
 
 Test project go
 
-Описать принцип работы каждого кусочка кода
+Описать принцип работы каждого кусочка кода main.go -
+добавить ci/cd.yml d контейнер-
+package main - что делает ?
+
+
+import (
+	"database/sql"
+	"html/template"
+	"log"
+	"net/http"
+	"os"
+	"strconv"
+	"time"
+
+	_ "://github.com"
+) - что делает ?
 
 
 
+type Resource struct {
+	ID        int
+	Name      string // Название (например, "Документация по BGP" или "Коммутатор Cisco Core")
+	Category  string // DevOps, NetOps, SysAdmin
+	TargetURL string // Куда перенаправлять (URL документации или веб-морды устройства)
+	Clicks    int    // Сколько раз переходили (Счетчик / Учет ресурса)
+	LastClick string // Дата последнего перехода
+}
+ что делает ?
+
+var db *sql.DB
+var tpl *template.Template что делает и почему переменные тут ?
 
 
-
-
-
-
-
-
-
-
-
-
+func main() - что за функция?
 
 
 
