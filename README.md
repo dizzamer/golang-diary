@@ -1,6 +1,6 @@
 # golang-diary
 
-Test project go
+## Test project go
 
 Описать принцип работы каждого кусочка кода main.go -
 добавить ci/cd.yml в контейнер docker -
